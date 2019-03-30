@@ -33,6 +33,12 @@ To get a particular record by ID
     $response = $companyHub->getData("/contact/1");
     echo "GET : " . $response . "</br>";
 ```
+To create new record
+```php
+	$fields = array('Name' => 'Vivek Muthal');
+	$response = $companyHub->postData("contact", $fields);
+	echo "POST : " . $response . "</br>";
+```
 To update a record by ID
 ```php
 	$recordId = 1;
