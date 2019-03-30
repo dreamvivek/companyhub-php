@@ -25,13 +25,13 @@ To test authentication
 ```
 To get all records of a table
 ```php
-    $response = $companyHub->getData("/contact");
-    echo "GET : " . $response . "</br>";
+	$response = $companyHub->getData("/contact");
+	echo "GET : " . $response . "</br>";
 ```
 To get a particular record by ID
 ```php
-    $response = $companyHub->getData("/contact/1");
-    echo "GET : " . $response . "</br>";
+	$response = $companyHub->getData("/contact/1");
+	echo "GET : " . $response . "</br>";
 ```
 To create new record
 ```php
@@ -42,15 +42,15 @@ To create new record
 To update a record by ID
 ```php
 	$recordId = 1;
-    $fields = array('Name' => 'Vivek MuthalUpdated');
-    $response = $companyHub->postData("contact", $fields, $recordId);
-    echo "PUT : " . $response . "</br>";
+	$fields = array('Name' => 'Vivek MuthalUpdated');
+	$response = $companyHub->postData("contact", $fields, $recordId);
+	echo "PUT : " . $response . "</br>";
 ```
 To delete single or multiple records
 ```php
-    $deleteIds = array('deletedIds' => array(1,2,3));
-    $response = $companyHub->deleteData("contact", $deleteIds);
-    echo "DELETE : " . $response . "</br>";
+	$deleteIds = array('deletedIds' => array(1,2,3));
+	$response = $companyHub->deleteData("contact", $deleteIds);
+	echo "DELETE : " . $response . "</br>";
 ```
 # License
 The MIT License (MIT)
