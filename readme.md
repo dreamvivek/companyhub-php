@@ -8,7 +8,7 @@ You must have a look at CompanyHub [API Documentation](https://companyhub.com/do
  - php_curl
 
 # Usage
-As shown in example.php include and init CompanyHub with credentials.	
+Include and init CompanyHub with credentials.	
 ```php
 	include 'CompanyHub.php';
 	
@@ -17,40 +17,50 @@ As shown in example.php include and init CompanyHub with credentials.
 	$secret = "YOUR_SECRET";
 	
 	$companyHub = new CompanyHub($domain, $secret);
+	//If invalid credentials are provided then it will throw error
 ```
-To test authentication
-```php  
-	$response = $companyHub->getData("/me");
-	echo "GET : " . $response . "</br>";
-```
-To get all records of a table
+To get all records of a table (With pagination & Search)
 ```php
-	$response = $companyHub->getData("/contact");
-	echo "GET : " . $response . "</br>";
+	//getRecords : it takes 4 parameters.
+	//$tableName is compulsory, $start & limit are for pagination and $searchText is optional.
+	$response = $companyHub->getRecords($tableName, $start, $limit);
+	foreach($response->Data as $record){
+		print_r($record);
+	}
+	//Searching
+	$searchText = "ab";
+	$response = $companyHub->getRecords($tableName, $start, $limit, $searchText);
+	foreach($response->Data as $record){
+		print_r($record);
+	}
 ```
 To get a particular record by ID
 ```php
-	$response = $companyHub->getData("/contact/1");
-	echo "GET : " . $response . "</br>";
+	//getRecord : it takes 2 parameters and both are compulsory.
+	$response = $companyHub->getRecord($tableName, $recordId);
+	$record = $response->Data;
 ```
 To create new record
 ```php
+	//createRecord : it takes 2 parameters and both are compulsory.
 	$fields = array('Name' => 'Vivek Muthal');
-	$response = $companyHub->postData("contact", $fields);
-	echo "POST : " . $response . "</br>";
+	$response = $companyHub->createRecord($tableName, $fields);
+	//$response->Success: is status true or false
+	//$response->Id: is newly created id of record
 ```
 To update a record by ID
 ```php
-	$recordId = 1;
+	//updateRecord : it takes 3 parameters and all are compulsory.
 	$fields = array('Name' => 'Vivek MuthalUpdated');
-	$response = $companyHub->postData("contact", $fields, $recordId);
-	echo "PUT : " . $response . "</br>";
+	$recordId = 1;
+	$response = $companyHub->updateRecord($tableName, $recordId, $fields);
+	//$response->Success: is status true or false
 ```
 To delete single or multiple records
 ```php
-	$deleteIds = array('deletedIds' => array(1,2,3));
-	$response = $companyHub->deleteData("contact", $deleteIds);
-	echo "DELETE : " . $response . "</br>";
+	$recordIds = array(1,2,3);
+	$response = $companyHub->deleteRecords($tableName, $recordIds);
+	print_r($response);
 ```
 # License
 The MIT License (MIT)
