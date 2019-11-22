@@ -73,7 +73,7 @@ class CompanyHub{
 	public function getRecords($tableName, $start = 0, $limit = 20,  $search = null){		
 		$url = "/tables/".$tableName.'?start='.$start.'&limit='.$limit;
 		if($search != null){
-			$url = $url.'&searchText='.$search;
+			$url = $url.'&searchText='.rawurlencode($search);
 		}
 		return json_decode($this->getData($url));
 	}
